@@ -62,7 +62,9 @@ def create_rating_app():
     if 'total_items' not in st.session_state:
         st.session_state.total_items = 0
 
-    st.title("Emotional Content Rating Application")
+    st.title("Text Labeling App")
+    
+    # Add CSS for content styling and button formatting
     st.markdown("""
         <style>
         @font-face {
@@ -80,16 +82,23 @@ def create_rating_app():
             border-radius: 10px;
             margin: 10px 0;
         }
+        div.stButton > button {
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+        }
         </style>
     """, unsafe_allow_html=True)
+    
     # Add protocol link
     if st.button("View Rating Protocol"):
         st.switch_page("pages/protocol.py")
     
     st.write("""
-    This application helps you analyze content for emotional attributes. For each item, you'll provide:
+    This application helps you label emotiona source attribution in Reddit posts. For each item, you'll provide:
     1. Whether an emotional source is present (Yes/No)
-    2. A rating for the scale of emotional attribution (1-5)
+    2. A rating for the level of emotional attribution (1-5).
+    please refer to the protocol linked above for in depth details on the rating process.
     
     Note: Your Excel file must contain a column with 'content' in its name (not case sensitive).
     If loading a previously rated file, the app will automatically continue from the first unrated item.
@@ -173,8 +182,8 @@ def create_rating_app():
                 viewing_previous = (st.session_state.current_index < len(st.session_state.emotional_sources) and 
                                  st.session_state.emotional_ratings[st.session_state.current_index] is not None)
                 
+                # For the radio button (Emotional Source Present)
                 if viewing_previous:
-                    # Show existing ratings
                     emotional_source = st.radio(
                         "Emotional Source Present?",
                         options=["Yes", "No"],
@@ -182,20 +191,8 @@ def create_rating_app():
                         key=f"source_{st.session_state.current_index}",
                         help="Select 'Yes' if there is a clear emotional source in the content"
                     )
-                    
-                    emotional_scale = st.slider(
-                        "Scale of Emotional Attribution (1-5):", 
-                        min_value=1, 
-                        max_value=5, 
-                        value=int(st.session_state.emotional_ratings[st.session_state.current_index]),
-                        step=1,
-                        key=f"scale_{st.session_state.current_index}",
-                        help="1 = Minimal emotional attribution, 5 = Strong emotional attribution"
-                    )
                 else:
-                    # Create a unique key for new ratings
                     widget_key = f"{st.session_state.current_index}_{st.session_state.should_reset}"
-                    
                     emotional_source = st.radio(
                         "Emotional Source Present?",
                         options=["Yes", "No"],
@@ -203,24 +200,49 @@ def create_rating_app():
                         key=f"source_{widget_key}",
                         help="Select 'Yes' if there is a clear emotional source in the content"
                     )
-                    
-                    emotional_scale = st.slider(
-                        "Scale of Emotional Attribution (1-5):", 
-                        min_value=1, 
-                        max_value=5, 
-                        value=3,  # Default to 3
-                        step=1,
-                        key=f"scale_{widget_key}",
-                        help="1 = Minimal emotional attribution, 5 = Strong emotional attribution"
-                    )
                 
-                col1, col2 = st.columns(2)
+                # Now for the slider (Scale of Emotional Attribution)
+                # Set min and max values based on emotional_source selection
+                if emotional_source == "No":
+                    min_scale = 1
+                    max_scale = 2
+                    help_text = "1-2 = Low emotional attribution (select when Emotional Source is No)"
+                else:  # "Yes"
+                    min_scale = 3
+                    max_scale = 5
+                    help_text = "3-5 = Higher emotional attribution (select when Emotional Source is Yes)"
+                
+                # Set default value based on current selection and allowed range
+                if viewing_previous:
+                    current_value = int(st.session_state.emotional_ratings[st.session_state.current_index])
+                    # Ensure value is within the allowed range
+                    if emotional_source == "No" and current_value > 2:
+                        current_value = 2
+                    elif emotional_source == "Yes" and current_value < 3:
+                        current_value = 3
+                else:
+                    # Default values for new ratings
+                    current_value = 1 if emotional_source == "No" else 3
+                
+                emotional_scale = st.slider(
+                    "Scale of Emotional Attribution:", 
+                    min_value=min_scale, 
+                    max_value=max_scale, 
+                    value=current_value,
+                    step=1,
+                    key=f"scale_{st.session_state.current_index}_{emotional_source}",
+                    help=help_text
+                )
+                
+                # Updated column layout to give more space to the button
+                col1, col2, col3 = st.columns([1, 1.5, 1.5])
                 with col1:
                     if st.button("⬅️ Previous", disabled=st.session_state.current_index == 0):
                         st.session_state.current_index -= 1
                         st.rerun()
                 
-                with col2:
+                # Empty middle column
+                with col3:
                     if st.button("Next/Submit Rating ➡️"):
                         current_length = len(st.session_state.emotional_sources)
                         
