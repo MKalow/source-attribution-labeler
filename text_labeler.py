@@ -91,11 +91,15 @@ def create_rating_app():
     """, unsafe_allow_html=True)
     
     # Add protocol link
-    if st.button("View Rating Protocol"):
-        st.switch_page("pages/protocol.py")
-    
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("View Rating Protocol"):
+            st.switch_page("pages/protocol.py")
+    with col2:
+        if st.button("View Examples"):
+            st.switch_page("pages/examples.py")
     st.write("""
-    This application helps you label emotiona source attribution in Reddit posts. For each item, you'll provide:
+    This application helps you label emotional source attribution in Reddit posts. For each item, you'll provide:
     1. Whether an emotional source is present (Yes/No)
     2. A rating for the level of emotional attribution (1-5).
     please refer to the protocol linked above for in depth details on the rating process.

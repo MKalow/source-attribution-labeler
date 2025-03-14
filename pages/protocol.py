@@ -4,6 +4,10 @@ def show_protocol():
     # Add CSS for styling both Hebrew and English text
     st.markdown("""
         <style>
+        @font-face {
+            font-family: 'David';
+            src: local('David');
+        }
         .hebrew-text {
             font-family: 'David', Arial, sans-serif;
             direction: rtl;
@@ -28,66 +32,80 @@ def show_protocol():
     
     st.markdown("""
     <div class="hebrew-text">
-    <strong>פרוטוקול קידוד לרדיט</strong>
+    <h2>פרוטוקול קידוד Reddit -- מרץ 2025</h2>
 
-    * יש לעשות קידוד דיכוטומי, כלומר האם יש או אין מידע על מקור הרגש- 0/1.
-    
-    יש לעשות גם קידוד בסקאלה, של כמה מידע יש על המקור 1-5. 1/2 יהיו יחד עם 0 בדיכוטומי, 3-5 עם 1.
+    <p>אנחנו עוברים על פוסטים שפורסמו תחת הפורום רדיט <strong>SuicideWatch</strong> שמיועד לתמיכה עבור אנשים אובדניים עם מצוקה נפשית. עבור כל פוסט עלינו לעבור על תוכנו, <strong>כותרת + גוף הטקסט,</strong> ולקבל 2 החלטות --</p>
 
-    לדוגמא, זה יהיה 0 בדיכוטומי ו-1 בסקאלה:
+    <ul>
+    <li><strong>האם</strong> ישנו מידע על מקור הרגש, ציון בינארי <strong>כן/לא</strong>.</li>
+    <li><strong>כמה</strong> מידע ישנו על מקור הרגש, <strong>סקאלה עולה הנעה בין 1-5</strong>, ואפשר לתארה באופן הגס הבא:</li>
+    </ul>
+
+    <p><strong><u>אין מקור</u></strong></p>
+
+    <ol>
+    <li><strong>אין</strong> בכלל אינפורמציה.</li>
+    <li><strong>יש אינפורמציה מאוד עמומה</strong>, למשל, "כל העולם אשם", "החיים חרא", "אני שונא את כולם". לכאורה יש אינפורמציה, אך היא חובקת כל, ו<strong>לא קונקרטית</strong>.</li>
+    </ol>
+
+    <p><strong><u>יש מקור</u></strong></p>
+
+    <ol start="3">
+    <li><strong>יש כותרת של מקור, אבל אין פירוט או "בשר".</strong> ציון של מקור כלשהו כמו -- "חברה שלי נפרדה ממני" מבלי להרחיב. הרבה פעמים יכול להגיע גם כמניה של הרבה סיבות, למשל, "חברה שלי עזבה אותי, ההורים שלי שונאים אותי", מה שבמקרים קיצוניים יכול להיות שווה הורדה ל-2, כתלות בסוג הסיבות וכלליותן. פרידה, מוות של חיה אהובה או בן משפחה הן עדיין ארוע ומקור קונקרטי.</li>
+    <li><strong>יש כותרת של מקור</strong> + <strong>קצת בשר מעבר</strong>. ציון של מקור וקצת הסבר -- "חברה שלי נפרדה ממני שבוע שעבר אחרי ריב גדול". יש כותרת ויש מעין תת-כותרת.</li>
+    <li><strong>יש כותרת של מקור + סיפור.</strong> ציון של מקור וסיפור עשיר יותר. הסבר על מה קדם לריב, איך הוא התנהל, מחשבות רפלקטיביות.</li>
+    </ol>
+
+    <p><strong><u>הערות חשובות</u></strong></p>
+
+    <ul>
+    <li><strong>חשוב לציין! אנחנו <u>לא</u> מנסים לנתח את רמת המודעות העצמית של הכותב, בוחן המציאות שלו, או כל אספקט פסיכולוגיסטי אחר. אנחנו בוחנים את מקור הרגש בתור מתבונן מהצד, קורא של הפוסט, וכמה מידע יש לו על מקור הרגש <u>הפוטנציאלי</u></strong> <strong>של הכותב. עליכם לשאול את עצמכם: האם <u>אני</u> חושב שאני יודע מה גרם לאדם הזה להרגיש ככה?</strong></li>
+    <li><strong>מקור הרגש צריך להיות קונקרטי, מוסיף מידע אמיתי. ככל שהוא קונקרטי ויותר עשיר במידע, הוא מקבל ציון גבוה יותר.</strong></li>
+    <li><strong>תיאור ושיום של רגשות איננו נחשב מידע על מקורן. אם בן אדם מתאר באופן מאוד ורבלי את איך שמתבטא הכעס שלו כלפי הסובבים אותו, או איך הוא מרגיש אותו בגוף, זה <u>לא</u> מקור רגש. באופן אחר, אם מישהו מסביר כי הוא מתסוכל או עצוב מכך שהוא כועס כל הזמן, תיאור או הסבר של רגשות בעזרת רגשות אחרים, גם הוא <u>אינו</u> מהווה מקור רגש. ישנם מקרים רבים בהם אנשים אובדניים מתארים כי הם מרגישים בושה, אשמה וכיוב'. מבלי ציון מקור רגשות אלו בעצמן, נדרג 2.</strong></li>
+    </ul>
+
+    <p><strong><u>דוגמאות מהדאטה</u></strong></p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""<div class="example-text">
-    "i tried overdosing medication 7 times at extreme dose i always went in reanimation I need to finish plz tell me to hang myselfkdsls"
+    # Example 1
+    st.markdown("""<div class="hebrew-text">
+    0 בדיכוטומי ו-1 בסקאלה. תיאור יחסית שכיח של אנשים שפורטים או מתארים נסיונות אובדניים, או שמתארים את הרצון לבצע מעשה כזה ומעלים אפשרויות.
     </div>""", unsafe_allow_html=True)
-    
+
+    # Example 2
+    st.markdown("""<div class="hebrew-text">
+    1 דיכוטומי 3 בסקאלה. בגלל התיאור של הכותב על החרטה והבושה על <strong>מה</strong> שהעביר את הקרובים לו, אך לא ממש ברור מה זה ה"לראות אותי ככה".
+    </div>""", unsafe_allow_html=True)
+
+    # Example 3
+    st.markdown("""<div class="hebrew-text">
+    במקרים בהם הפוסט מדבר על הקושי של הכותב עם מצוקה של אדם אחר, מתייחסים לכותב הפוסט והדבר שגרם לו לכתוב. כלומר, מתייחסים לשאלה האם מי שכתב את הפוסט תיאר את מקור המצוקה שלו. לדוגמא, במקרה הזה הכותב תיאר בצורה מפורטת את מקור המצוקה ולכן יקבל קידוד של ״1״ ושל ״5״.
+    </div>""", unsafe_allow_html=True)
+
+    # Example 4
+    st.markdown("""<div class="hebrew-text">
+    1 בדיכוטומי, 3 בסקאלה. העובדה כי התרופות לא עובדות או רופאים לא יודעים מה לעשות היא חלק מסיבה כללית כזאת של "כלום לא משתפר", אבל דווקא העובדה שהוא מציין כי חיות המחמד שלו מתו היא כן. בכל זאת, הפוסט נשאר בכותרות ואין הרבה "בשר". לכן רק 3.
+    </div>""", unsafe_allow_html=True)
+
+    # Example 5
+    st.markdown("""<div class="hebrew-text">
+    דוגמא נוספת של 1 ו- 3.
+    </div>""", unsafe_allow_html=True)
+
     st.markdown("""
     <div class="hebrew-text">
-    וזה יהיה 1 בדיכוטומי ו-4 בסקאלה:
+    <p><strong><u>טכני</u></strong></p>
+
+    <ul>
+    <li>את התיוגים ניתן לבצע מעל הממשק האינטרנטי הבא: <strong>Source Attribution Labeler</strong></li>
+    <li>יש לעקוב אחר ההוראות הקיימות שם כדי לטעון אקסל שמיועד לתיוג, ולשים לב כי העמודות הרלוונטיות עם השם המתאים.</li>
+    <li>המתייג נכון לעכשיו מאפשר הצגה קלה של הטקסט ובחירת התיוגים (בינארי וסקאלה) ונועד למנוע טעויות תיוג ולהקל על העבודה מעל אקסל.</li>
+    <li>בנוסף, כל הפרוטוקול הנ"ל מופיע גם שם וניתן להעזר בו בעת העבודה.</li>
+    <li>ישנו עמוד explore tagged data שבו ניתן להציג דוגמאות תיוג נוספות.</li>
+    </ul>
     </div>
     """, unsafe_allow_html=True)
-
-    st.markdown("""<div class="example-text">
-    "i just wosh they wouldve let me do it cause not im left witht eh regret and guilt that i put them through seeing me like that, and oh god the embarrassment"
-    </div>""", unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="hebrew-text">
-    בגלל התיאור המדויק של הרגש והסיבה (מבוכה ואשמה) גם אם אין סיבה לכל הדיכאון עצמו.
-
-    * מקור הרגש צריך להיות קונקרטי, מוסיף מידע אמיתי -- "החיים חסרי משמעות" לא נחשב, "ההורים שלי נפטרו" נחשב.
-
-    * במקרים בהם הפוסט מדבר על הקושי של הכותב עם מצוקה של אדם אחר, מתייחסים לכותב הפוסט והדבר שגרם לו לכתוב.
-    לדוגמא:
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""<div class="example-text">
-    "My best friend killed himself...He was the only person I could confide in. He faced a couple of setbacks and had a few shitty days and 2 months ago, killed himself."
-    </div>""", unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="hebrew-text">
-    <strong>כמה דוגמאות למקרי ביניים וההחלטה שקיבלנו עליהם:</strong>
-
-    * 1 בדיכוטומי, 3 בסקאלה:
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""<div class="example-text">
-    "Nothing's getting better. Therapy isn't working. Meds aren't working. Even professionals are stumped and think there's nothing more they can do...I used to stay for my pets, but my pets died"
-    </div>""", unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="hebrew-text">
-    * 1 בדיכוטומי, 3 בסקאלה:
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""<div class="example-text">
-    "I'm angry at everything, at times. I miss my boyfriend. I thought that having one would make things better...I often wish bad things would happen to me."
-    </div>""", unsafe_allow_html=True)
 
     if st.button("Return to Rating Page"):
         st.switch_page("text_labeler.py")
