@@ -1,7 +1,31 @@
 import streamlit as st
 import pandas as pd
 import io
+import ftfy
 from datetime import datetime
+
+def fix_text_encoding(text):
+    """Fix common encoding issues without external libraries."""
+    if not isinstance(text, str):
+        return text
+    
+    # Common problematic characters and their replacements
+    replacements = {
+        'ג€™': "'",    # Right single quotation mark
+        'ג€"': "-",    # En dash
+        'ג€"': "-",    # Em dash
+        'ג€œ': '"',    # Left double quotation mark
+        'ג€': '"',     # Right double quotation mark
+        'ג€¦': "...",  # Ellipsis
+        'ֳ©': "é",     # Latin small letter e with acute
+        'ג€˜': "'",    # Left single quotation mark
+        '\xa0': ' ',   # Non-breaking space
+    }
+    
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    
+    return text
 
 def find_content_column(columns):
     """
@@ -130,6 +154,8 @@ def create_rating_app():
         try:
             if st.session_state.original_data is None:
                 df = pd.read_excel(st.session_state.uploaded_file)
+                for col in df.select_dtypes(include=['object']).columns:
+                    df[col] = df[col].apply(fix_text_encoding)
                 content_column = find_content_column(df.columns)
                 
                 if content_column is None:
@@ -178,6 +204,10 @@ def create_rating_app():
                     current_content = "[Empty content]"
                 
                 st.write("### Content to Rate:")
+                if 'title' in df.columns:
+                     current_title = df.iloc[st.session_state.current_index]['title']
+                #Display the title in bold
+                st.markdown(f"**Title:** {current_title}")
                 st.markdown(f'<div class="content-text">{current_content}</div>', unsafe_allow_html=True)
                 
                 st.write("### Rating Section")
